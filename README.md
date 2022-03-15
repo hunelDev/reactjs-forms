@@ -23,7 +23,7 @@
 
 ## Guide
 
-reactjs-forms is a React package that contains a few React components and hook system. The components are almost the same as React syntactic form elements.React syntactic form elements.So you may use all attributes which you can use them on syntactic form elements.
+reactjs-forms is a React package that contains a few React components and hook system. The components are almost the same as React syntactic form elements.So you may use all attributes which you can use them on syntactic form elements.
 
 ### Extended Features
 
