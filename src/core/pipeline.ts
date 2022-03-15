@@ -4,7 +4,7 @@ const ValidatePipeLine: ValidateCase[] = [
   {
     case: "isEmail",
     pattern: {
-      is: /^(([^<>()[\].,;:\s@"]+(.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+.)+[^<>()[\].,;:\s@"]{2,})$/i,
+      is: /^(([^<>()[\].,;:\s@"]+(.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+.)+[^<>()[\].,;:\s@"]{2,})$/gim,
     },
     defaultMsg: "invalid email address",
   },
@@ -12,23 +12,46 @@ const ValidatePipeLine: ValidateCase[] = [
   {
     case: "isAlpha",
     pattern: {
-      is: /\p{L}+/iu,
+      is: /^[a-z]+$/gim,
     },
     defaultMsg: "{{identity}} field value must contain only letters.",
   },
 
   {
-    case: "isNumeric",
+    case: "isUnicode",
     pattern: {
-      is: /^[0-9]+$/iu,
+      is: /^\p{L}+$/gimu,
     },
-    defaultMsg: "{{identity}} field value must contain only numbers",
+    defaultMsg: "{{identity}} field value must contain only letters.",
   },
 
   {
+    case: "isName",
+    pattern: {
+      is: /^[\p{L}`'~.\s]{2,}$/gimu,
+    },
+    defaultMsg: "invalid name",
+  },
+
+  {
+    case: "isNumeric",
+    pattern: {
+      is: /^[0-9]+$/gim,
+    },
+    defaultMsg: "{{identity}} field value must contain only numbers",
+  },
+  {
     case: "isAlphaNumeric",
     pattern: {
-      is: /^[\p{L} | 0-9]+$/iu,
+      is: /^[a-z | 0-9]+$/gimu,
+    },
+    defaultMsg: "{{identity}} field value must contain letters and numbers.",
+  },
+
+  {
+    case: "isUnicodeNumeric",
+    pattern: {
+      is: /^[\p{L} | 0-9]+$/gimu,
     },
     defaultMsg: "{{identity}} field value must contain letters and numbers.",
   },
@@ -60,16 +83,16 @@ const ValidatePipeLine: ValidateCase[] = [
         lower: true,
       },
     },
-    defaultMsg: "{{identity}} field value must be lower than {{value}}.",
+    defaultMsg: "{{identity}} field value must be greater than {{value}}.",
   },
   {
-    case: "min",
+    case: "max",
     pattern: {
       num: {
         greater: true,
       },
     },
-    defaultMsg: "{{identity}} field value must be greater than {{value}}.",
+    defaultMsg: "{{identity}} field value must be lower than {{value}}.",
   },
 ];
 

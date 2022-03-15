@@ -123,14 +123,15 @@ const ResolveValidateCase = (
           return pattern.num!.greater ? +v > +msgValue! : +v < +msgValue!;
         });
       } else {
-        if (pattern.len)
+        if (pattern.len) {
           result = pattern.len.greater
-            ? value.length > +msgValue!
-            : value.length < +msgValue!;
-
-        result = pattern.num!.greater
-          ? +value > +msgValue!
-          : +value < +msgValue!;
+            ? value.length < +msgValue!
+            : value.length > +msgValue!;
+        } else {
+          result = pattern.num!.greater
+            ? +value < +msgValue!
+            : +value > +msgValue!;
+        }
       }
     }
 

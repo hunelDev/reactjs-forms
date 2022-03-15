@@ -3,7 +3,9 @@
 ![](https://img.shields.io/github/v/release/huneljs/reactjs-forms)
 
 [**Github**](https://github.com/huneljs/reactjs-forms "Github")
+
 [**Demo**](https://codesandbox.io/s/admiring-brook-u0tx09 "Demo")
+
 [**Discord**](https://discord.gg/BQffnte8 "Join Discord")
 
 - [Reactjs Forms](#reactjs-forms)
@@ -21,26 +23,28 @@
 
 ## Guide
 
-reactjs-forms is a React package who contains a few React components and hook system.
-The components are almost the same as React syntactic form elements.So you can use all attributes which you can use on syntactic form elements on them.
+reactjs-forms is a React package that contains a few React components and hook system. The components are almost the same as React syntactic form elements.So you can use all attributes which you can use on syntactic form elements on them.
 
 ### Extended Features
 
-reactjs-forms contains Input,Select and Textarea components.that components have validation,customValidation,identity props.Validation prop is a PrimaryValidateObject typed object prop.Validation accepts an object which contains primary validations.(buit-in validations).CustomValidation accepts a function is that retuns object.That object has msg and result props.Msg is used to send a msg to ValidationResultObject whenever custom validation result is false.
+reactjs-forms contains Input,Select and Textarea components.that components have validation,customValidation,identity props.Validation prop is a PrimaryValidateObject typed object prop.Validation accepts an object which contains primary validations.(buit-in validations).CustomValidation accepts a function is that returns object.That object has msg and result props.Msg is used to send a msg to ValidationResultObject whenever custom validation result is false.
 
 ### Primary Validations
 
-| descriptor     | is value forced | explanation                                        |
-| -------------- | --------------- | -------------------------------------------------- |
-| required       | No              | value cannot be empty or undefined                 |
-| isEmail        | No              | value must be email address format                 |
-| isAlpha        | No              | value must contain unicode letters                 |
-| isNumeric      | No              | value can be numbers                               |
-| isAlphaNumeric | No              | value must contain letters and numbers             |
-| maxLen         | Yes             | value must contain fewer characters than {{value}} |
-| minLen         | Yes             | value must contain more characters than {{value}}  |
-| max            | Yes             | value must be numeric that lower than {{value}}    |
-| min            | Yes             | value must be numeric that greater than {{value}}  |
+| descriptor       | is value forced | explanation                                        |
+| ---------------- | --------------- | -------------------------------------------------- |
+| required         | No              | value cannot be empty or undefined                 |
+| isEmail          | No              | value must be email address format                 |
+| isAlpha          | No              | value must contain letters                         |
+| isUnicode        | No              | value must contain unicode letters                 |
+| isName           | No              | value must be name format                          |
+| isNumeric        | No              | value can be numbers                               |
+| isAlphaNumeric   | No              | value must contain letters and numbers             |
+| isUnicodeNumeric | No              | value must contain unicode letters and numbers     |
+| maxLen           | Yes             | value must contain fewer characters than {{value}} |
+| minLen           | Yes             | value must contain more characters than {{value}}  |
+| max              | Yes             | value must be numeric that lower than {{value}}    |
+| min              | Yes             | value must be numeric that greater than {{value}}  |
 
 _Primary validations are under development.You can help me to declare new features so you can be collaborator.Additionally you can access primary validation list under core/pipelines.ts_
 
@@ -101,11 +105,13 @@ import { Form, Input, Textarea, useFormValidation } from "reactjs-forms";
 const App = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [age, setAge] = useState("");
   const [address, setAddress] = useState("");
   const [errors, setErrors] = useState({});
+  const [addressErrors, setAddressErrors] = useState({});
 
   const validation = useFormValidation();
-  const validationForAddress = useFormValidation("address"); // //you may send args to get only specific inputs errors
+  const validationForAddress = useFormValidation("address"); //you may send args to get only specific inputs errors like ["adress","email"] or "address","email"
 
   const emailErrors = useMemo(
     () =>
@@ -119,12 +125,18 @@ const App = () => {
     [errors]
   );
 
-  const addressErrors = useMemo(
+  const ageErrors = useMemo(
     () =>
-      errors.address
-        ? errors.address.map((v, i) => <li key={i}>{v.msg}</li>)
-        : [],
+      errors.age ? errors.age.map((v, i) => <li key={i}>{v.msg}</li>) : [],
     [errors]
+  );
+
+  const onlyAddressErrors = useMemo(
+    () =>
+      addressErrors.address
+        ? addressErrors.address.map((v, i) => <li key={i}>{v.msg}</li>)
+        : [],
+    [addressErrors]
   );
 
   return (
@@ -136,20 +148,21 @@ const App = () => {
           setErrors(validation()); //get validation errors and set errors state for rendering
         }}
       >
-        <label htmlFor="name">Email:</label>
+        <label htmlFor="email">Email:</label>
         <Input
           onChange={(e) => setEmail(e.target.value)}
           value={email} //we have to declare value attribute
           identity="email" //also we have to declare identity attribute because of that value is used to get validation results
-          id="email"
+          id="email" //
+          type="email"
           validation={{
             required: true,
             isEmail: true,
           }}
         />
-        <br />
         {/* list all email erros*/}
         <ul>{emailErrors}</ul>
+        <br />
         <label htmlFor="name">Name:</label>
         <Input
           onChange={(e) => setName(e.target.value)}
@@ -157,7 +170,7 @@ const App = () => {
           identity="name"
           id="name"
           validation={{
-            isAlpha: {
+            isName: {
               msg: "custom message", //you may or not declare a custom message
               value: true, //you dont have to declare value also
             },
@@ -166,7 +179,25 @@ const App = () => {
         {/* list all name erros*/}
         <ul>{nameErrors}</ul>
         <br />
-        <label htmlFor="">Address:</label>
+        <label htmlFor="age">Age:</label>
+        <Input
+          onChange={(e) => setAge(e.target.value)}
+          value={age}
+          identity="age"
+          id="age"
+          validation={{
+            isNumeric: true,
+            min: 17, //you can assign value or msg like object notation
+            max: {
+              value: "120",
+              msg: "What was that.holy lighten!!!!!",
+            },
+          }}
+        />
+        <ul>{ageErrors}</ul>
+        <br />
+        <label htmlFor="address">Address:</label>
+        <br />
         <Textarea
           onChange={(e) => setAddress(e.target.value)}
           value={address}
@@ -174,12 +205,13 @@ const App = () => {
           id="address"
           validation={{
             required: true,
+            isUnicode: true,
           }}
           onBlur={() => {
-            validationForAddress();
+            setAddressErrors(validationForAddress());
           }}
         />
-        <ul>{addressErrors}</ul>
+        <ul>{onlyAddressErrors}</ul>
         <button>Send</button>
       </Form>
     </div>
@@ -300,6 +332,8 @@ const Other = () => {
 
 export default Other;
 ```
+
+For other examples ; [**Demo**](https://codesandbox.io/s/admiring-brook-u0tx09 "Demo")
 
 Finally,if you want to ask any question you can join our [Discord](https://discord.gg/BQffnte8 "Discord") channel.
 Also you can be contributor.

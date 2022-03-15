@@ -4,6 +4,7 @@ export const addPrimaryMsg = (validate: PrimaryValidateValue, msg: string) => {
   switch (typeof validate) {
     case "string":
     case "boolean":
+    case "number":
       return msg;
     default:
       return validate.msg ?? msg;

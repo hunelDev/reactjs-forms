@@ -57,8 +57,11 @@ declare interface TextareaProps
 type PrimaryValidation =
   | "isEmail"
   | "isAlpha"
+  | "isUnicode"
+  | "isName"
   | "isNumeric"
   | "isAlphaNumeric"
+  | "isUnicodeNumeric"
   | "required"
   | "maxLen"
   | "minLen"
@@ -75,7 +78,8 @@ type PrimaryValidateValue =
       value?: number | string | boolean;
     }
   | string
-  | boolean;
+  | boolean
+  | number;
 
 type PrimaryValidateObject = {
   [P in PrimaryValidation]?: PrimaryValidateValue;
