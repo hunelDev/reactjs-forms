@@ -1,4 +1,5 @@
-##Reactjs Forms
+## Reactjs Forms
+
 ![](https://img.shields.io/github/v/release/huneljs/reactjs-forms)
 
 [**Github**](https://github.com/huneljs/reactjs-forms "Github")
@@ -13,39 +14,50 @@
   - [Custom Validations](#custom-validations)
   - [Extended Form Element and Multiple Select Element](#extended-form-element-and-multiple-select-element)
   - [Examples](#examples)
-  
-##Installation
+
+## Installation
+
 `$ npm install reactjs-forms`
 
-##Guide
-reactjs-forms is a React package who contains a few  React components and hook system.
-The components are almost the same as React syntactic form elements.So you can use all attributes which you can use on syntactic form elements on them.
-### Extended Features
-reactjs-forms contains Input,Select and Textarea components.that components have validation,customValidation,identity props.Validation prop is a PrimaryValidateObject typed object prop.Validation accepts an object which contains primary validations.(buit-in validations).CustomValidation accepts a function is that retuns object.That object has msg and result props.Msg is used to send a msg to ValidationResultObject  whenever  custom validation result is false.
-###Primary Validations
-|   descriptor | is value forced  | explanation | 
-| ------------ | ------------ | ------------ |
-|  required  |   No  |  value  cannot be empty  or undefined
-| isEmail    |  No  |  value must be email address format
-|  isAlpha  | No  | value must contain unicode letters
-| isNumeric  |  No  | value can be numbers
-|  isAlphaNumeric  | No  | value must contain letters and numbers
-|  maxLen  | Yes   |  value must contain fewer characters than {{value}}
-|  minLen  | Yes   |  value must contain more characters than {{value}}
-|  max  |   Yes | value must be numeric that lower than {{value}}
-|  min  |   Yes | value must be numeric that greater than {{value}}
-*Primary validations are under development.You can help me to declare new features so you can be collaborator.Additionally you can access primary validation list under core/pipelines.ts*
+## Guide
 
-###Custom Validations
+reactjs-forms is a React package who contains a few React components and hook system.
+The components are almost the same as React syntactic form elements.So you can use all attributes which you can use on syntactic form elements on them.
+
+### Extended Features
+
+reactjs-forms contains Input,Select and Textarea components.that components have validation,customValidation,identity props.Validation prop is a PrimaryValidateObject typed object prop.Validation accepts an object which contains primary validations.(buit-in validations).CustomValidation accepts a function is that retuns object.That object has msg and result props.Msg is used to send a msg to ValidationResultObject whenever custom validation result is false.
+
+### Primary Validations
+
+| descriptor     | is value forced | explanation                                        |
+| -------------- | --------------- | -------------------------------------------------- |
+| required       | No              | value cannot be empty or undefined                 |
+| isEmail        | No              | value must be email address format                 |
+| isAlpha        | No              | value must contain unicode letters                 |
+| isNumeric      | No              | value can be numbers                               |
+| isAlphaNumeric | No              | value must contain letters and numbers             |
+| maxLen         | Yes             | value must contain fewer characters than {{value}} |
+| minLen         | Yes             | value must contain more characters than {{value}}  |
+| max            | Yes             | value must be numeric that lower than {{value}}    |
+| min            | Yes             | value must be numeric that greater than {{value}}  |
+
+_Primary validations are under development.You can help me to declare new features so you can be collaborator.Additionally you can access primary validation list under core/pipelines.ts_
+
+### Custom Validations
+
 You may declare custom validations.Custom validations accpet function with 2 parameters value and identity and returns an object that has result and msg props.
 we have given an example see **Example - 2**
 
-###Extended Form Element and Multiple Select Element
+### Extended Form Element and Multiple Select Element
+
 - Form element has validation results in submit handler via **e.currentTarget.validation**
 - Primitive React Syntactic select elements cannot set values as array.You have to make an effort to get all selected options from HTMLSelectAttibutes but you don't need it when using reactjs-forms Select Component.So you can access all selected option values via **e.target.values** see **Example - 2**
 
 ### Examples
-we have to wrap React compoents  with FormValidation Component that contains base context provider  
+
+we have to wrap React compoents with FormValidation Component that contains base context provider
+
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
@@ -53,16 +65,18 @@ import App from "./App";
 import FormValidation from "reactjs-forms";
 
 ReactDOM.render(
-    <FormValidation>
-      <App />
-    </FormValidation>,
+  <FormValidation>
+    <App />
+  </FormValidation>,
   document.getElementById("root")
 );
 ```
+
 Or if you develope under NextJS;
-*_app.jsx;*
+_\_app.jsx;_
 
 ###### Example - 1
+
 ```jsx
 import type { AppProps } from "next/app";
 import FormValidation from "reactjs-forms";
@@ -77,7 +91,9 @@ function MyApp({ Component, pageProps }) {
 
 export default MyApp;
 ```
-*any component;*
+
+_any component;_
+
 ```jsx
 import { useMemo, useState } from "react";
 import { Form, Input, Textarea, useFormValidation } from "reactjs-forms";
@@ -171,9 +187,10 @@ const App = () => {
 };
 
 export default App;
-
 ```
+
 ###### Example - 2
+
 In this example we will create a custom validator and also we will use a select form element with multiple selected attribute
 
 ```jsx
@@ -282,7 +299,6 @@ const Other = () => {
 };
 
 export default Other;
-
 ```
 
 Finally,if you want to ask any question you can join our [Discord](https://discord.gg/BQffnte8 "Discord") channel.
