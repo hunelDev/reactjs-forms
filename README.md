@@ -4,7 +4,7 @@
 
 [**Github**](https://github.com/huneljs/reactjs-forms "Github")
 
-[**Demo**](https://codesandbox.io/s/admiring-brook-u0tx09 "Demo")
+[**Demo**](https://codesandbox.io/s/serene-paper-n3f013 "Demo")
 
 [**Discord**](https://discord.gg/BQffnte8 "Join Discord")
 
@@ -23,7 +23,7 @@
 
 ## Guide
 
-reactjs-forms is a React package that contains a few React components and hook system. The components are almost the same as React syntactic form elements.So you can use all attributes which you can use on syntactic form elements on them.
+reactjs-forms is a React package that contains a few React components and hook system. The components are almost the same as React syntactic form elements.React syntactic form elements.So you may use all attributes which you can use them on syntactic form elements.
 
 ### Extended Features
 
@@ -333,7 +333,7 @@ const Other = () => {
 export default Other;
 ```
 
-For other examples ; [**Demo**](https://codesandbox.io/s/admiring-brook-u0tx09 "Demo")
+For other examples ; [**Demo**](https://codesandbox.io/s/serene-paper-n3f013 "Demo")
 
 Finally,if you want to ask any question you can join our [Discord](https://discord.gg/BQffnte8 "Discord") channel.
 Also you can be contributor.
