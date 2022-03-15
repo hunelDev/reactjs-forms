@@ -79,8 +79,6 @@ ReactDOM.render(
 Or if you develope under NextJS;
 _\_app.jsx;_
 
-###### Example - 1
-
 ```jsx
 import type { AppProps } from "next/app";
 import FormValidation from "reactjs-forms";
@@ -95,7 +93,7 @@ function MyApp({ Component, pageProps }) {
 
 export default MyApp;
 ```
-
+###### Example - 1
 _any component;_
 
 ```jsx
