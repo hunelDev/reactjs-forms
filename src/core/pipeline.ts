@@ -1,5 +1,5 @@
 import { ValidateCase } from "../types";
-//'^(([^<>()[\\].,;:\\s@"]+(.[^<>()[\\].,;:\\s@"]+)*)|(".+"))@(([^<>()[\\].,;:\\s@"]+.)+[^<>()[\\].,;:\\s@"]{2,})$'
+
 const ValidatePipeLine: ValidateCase[] = [
   {
     case: "isEmail",
