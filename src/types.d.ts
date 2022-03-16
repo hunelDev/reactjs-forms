@@ -110,8 +110,20 @@ interface Validatable {
 type ValidateCase = {
   case: keyof PrimaryValidateObject;
   pattern: {
-    is?: RegExp | string;
-    not?: RegExp | string;
+    is?: {
+      regex?: {
+        value: string;
+        flag: string;
+      };
+      value?: string;
+    };
+    not?: {
+      regex?: {
+        value: string;
+        flag: string;
+      };
+      value: string;
+    };
     len?: {
       lower?: true;
       greater?: true;

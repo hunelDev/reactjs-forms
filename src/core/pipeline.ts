@@ -1,10 +1,16 @@
 import { ValidateCase } from "../types";
-
+//'^(([^<>()[\\].,;:\\s@"]+(.[^<>()[\\].,;:\\s@"]+)*)|(".+"))@(([^<>()[\\].,;:\\s@"]+.)+[^<>()[\\].,;:\\s@"]{2,})$'
 const ValidatePipeLine: ValidateCase[] = [
   {
     case: "isEmail",
     pattern: {
-      is: /^(([^<>()[\].,;:\s@"]+(.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+.)+[^<>()[\].,;:\s@"]{2,})$/gim,
+      is: {
+        regex: {
+          value:
+            '^(([^<>()[\\].,;:\\s@"]+(.[^<>()[\\].,;:\\s@"]+)*)|(".+"))@(([^<>()[\\].,;:\\s@"]+.)+[^<>()[\\].,;:\\s@"]{2,})$',
+          flag: "gim",
+        },
+      },
     },
     defaultMsg: "invalid email address",
   },
@@ -12,7 +18,12 @@ const ValidatePipeLine: ValidateCase[] = [
   {
     case: "isAlpha",
     pattern: {
-      is: /^[a-z]+$/gim,
+      is: {
+        regex: {
+          value: "^[a-z]+$",
+          flag: "gim",
+        },
+      },
     },
     defaultMsg: "{{identity}} field value must contain only letters.",
   },
@@ -20,7 +31,12 @@ const ValidatePipeLine: ValidateCase[] = [
   {
     case: "isUnicode",
     pattern: {
-      is: /^\p{L}+$/gimu,
+      is: {
+        regex: {
+          value: "^\\p{L}+$",
+          flag: "gimu",
+        },
+      },
     },
     defaultMsg: "{{identity}} field value must contain only letters.",
   },
@@ -28,7 +44,12 @@ const ValidatePipeLine: ValidateCase[] = [
   {
     case: "isName",
     pattern: {
-      is: /^[\p{L}`'~.\s]{2,}$/gimu,
+      is: {
+        regex: {
+          value: "[\\p{L}`'~.\\s]{2,}$",
+          flag: "gimu",
+        },
+      },
     },
     defaultMsg: "invalid name",
   },
@@ -36,14 +57,24 @@ const ValidatePipeLine: ValidateCase[] = [
   {
     case: "isNumeric",
     pattern: {
-      is: /^[0-9]+$/gim,
+      is: {
+        regex: {
+          value: "^[0-9]+$",
+          flag: "gim",
+        },
+      },
     },
     defaultMsg: "{{identity}} field value must contain only numbers",
   },
   {
     case: "isAlphaNumeric",
     pattern: {
-      is: /^[a-z | 0-9]+$/gimu,
+      is: {
+        regex: {
+          value: "^[a-z | 0-9]+$",
+          flag: "gim",
+        },
+      },
     },
     defaultMsg: "{{identity}} field value must contain letters and numbers.",
   },
@@ -51,7 +82,12 @@ const ValidatePipeLine: ValidateCase[] = [
   {
     case: "isUnicodeNumeric",
     pattern: {
-      is: /^[\p{L} | 0-9]+$/gimu,
+      is: {
+        regex: {
+          value: "^[\\p{L} | 0-9]+$",
+          flag: "gimu",
+        },
+      },
     },
     defaultMsg: "{{identity}} field value must contain letters and numbers.",
   },

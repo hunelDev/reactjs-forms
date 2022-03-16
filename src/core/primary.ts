@@ -93,21 +93,35 @@ const ResolveValidateCase = (
     if (pattern.is || pattern.not) {
       if (Array.isArray(value)) {
         result = value.every((v) => {
-          if (pattern.is instanceof RegExp || pattern.not instanceof RegExp) {
-            return pattern.is
-              ? (pattern.is as RegExp).test(v)
-              : !(pattern.not as RegExp).test(v);
+          if (pattern.is?.regex || pattern.not?.regex) {
+            return pattern.is?.regex
+              ? new RegExp(pattern.is.regex.value, pattern.is.regex.flag).test(
+                  v
+                )
+              : !new RegExp(
+                  pattern.not!.regex!.value,
+                  pattern.not!.regex!.flag
+                ).test(v);
           }
 
-          return pattern.is ? pattern.is === v : pattern.not !== v;
+          return pattern.is?.value
+            ? pattern.is.value === v
+            : pattern.not?.value !== v;
         });
       } else {
-        if (pattern.is instanceof RegExp || pattern.not instanceof RegExp) {
-          result = pattern.is
-            ? (pattern.is as RegExp).test(value)
-            : !(pattern.not as RegExp).test(value);
+        if (pattern.is?.regex || pattern.not?.regex) {
+          result = pattern.is?.regex
+            ? new RegExp(pattern.is.regex.value, pattern.is.regex.flag).test(
+                value
+              )
+            : !new RegExp(
+                pattern.not!.regex!.value,
+                pattern.not!.regex!.flag
+              ).test(value);
         } else {
-          result = pattern.is ? pattern.is === value : pattern.not !== value;
+          result = pattern.is?.value
+            ? pattern.is.value === value
+            : pattern.not?.value !== value;
         }
       }
     }
