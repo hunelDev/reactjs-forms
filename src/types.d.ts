@@ -90,11 +90,13 @@ type CustomValidationResult = {
   msg: string;
 };
 
+type CustomValidator = (
+  value: string | string[],
+  identity: string
+) => CustomValidationResult;
+
 type CustomValidate = {
-  [P: string]: (
-    value: string | string[],
-    identity: string
-  ) => CustomValidationResult;
+  [P: string]: CustomValidator;
 };
 
 type CustomValidateObject = Partial<CustomValidate>;
