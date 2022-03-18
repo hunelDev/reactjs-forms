@@ -93,7 +93,9 @@ function MyApp({ Component, pageProps }) {
 
 export default MyApp;
 ```
+
 ###### Example - 1
+
 _any component;_
 
 ```jsx
@@ -109,7 +111,6 @@ const App = () => {
   const [addressErrors, setAddressErrors] = useState({});
 
   const validation = useFormValidation();
-  const validationForAddress = useFormValidation("address"); //you may send args to get only specific inputs errors like ["adress","email"] or "address","email"
 
   const emailErrors = useMemo(
     () =>
@@ -143,7 +144,7 @@ const App = () => {
         onSubmit={(e) => {
           e.preventDefault();
           console.log(e.currentTarget.validation); //we have accessed to the validation results via submit event currentTarget
-          setErrors(validation()); //get validation errors and set errors state for rendering
+          setErrors(validation().result); //get validation errors and set errors state for rendering
         }}
       >
         <label htmlFor="email">Email:</label>
@@ -206,7 +207,7 @@ const App = () => {
             isUnicode: true,
           }}
           onBlur={() => {
-            setAddressErrors(validationForAddress());
+            setAddressErrors(validation("address").result); //you may send args to get only specific inputs errors like ["adress","email"] or "address","email"
           }}
         />
         <ul>{onlyAddressErrors}</ul>
@@ -272,7 +273,7 @@ const Other = () => {
       <Form
         onSubmit={(e) => {
           e.preventDefault();
-          setErrors(validation());
+          setErrors(validation().result);
         }}
       >
         <label htmlFor="password">Password:</label>
