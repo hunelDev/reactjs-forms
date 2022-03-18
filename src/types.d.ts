@@ -2,9 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { ChangeEventHandler, FormEventHandler } from "react";
 
 type ValidationResults = {
-  [p: string]: {
-    msg: string;
-  }[];
+  [p: string]: ValidationResult;
 };
 
 type ValidationState = {

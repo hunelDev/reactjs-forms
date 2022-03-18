@@ -6,23 +6,22 @@ import {
   CustomValidateObject,
   PrimaryValidateObject,
   ValidationResult,
+  ValidationResults,
 } from "../types";
+import { checkResultIsValid } from "./helper";
 
-export function useFormValidation<T extends { [id: string]: ValidationResult }>(
-  ids: string[]
-): () => T;
-export function useFormValidation<T extends { [id: string]: ValidationResult }>(
-  ...ids: string[]
-): () => T;
-export function useFormValidation<T extends { [id: string]: ValidationResult }>(
+export function useFormValidation<T extends ValidationResults>(): (
   ...ids: [string[]] | [...string[]]
-): () => T {
+) => { result: ValidationResults; isValid: boolean } {
   const context = useContext(FormContext);
-  return function () {
+  return function (...ids: [string[]] | [...string[]]) {
     const result = { ...context!.validationResults };
-    if (!ids.length) return result as T;
+    const keys = Object.keys(result);
+    if (!ids.length) {
+      return { result, isValid: checkResultIsValid(result) };
+    }
 
-    return Object.keys(result).reduce((prev: any, current) => {
+    const filteredResult = keys.reduce((prev: any, current) => {
       if (Array.isArray(ids[0])) {
         if (ids[0].includes(current)) prev[current] = result[current];
         return prev;
@@ -31,6 +30,10 @@ export function useFormValidation<T extends { [id: string]: ValidationResult }>(
       if ((ids as string[]).includes(current)) prev[current] = result[current];
       return prev;
     }, {}) as T;
+    return {
+      result: filteredResult,
+      isValid: checkResultIsValid(filteredResult),
+    };
   };
 }
 

@@ -21,7 +21,7 @@ const Tester: FC = () => {
         data-testid="form"
         onSubmit={(e) => {
           e.preventDefault();
-          setErrorList(validation().testInput);
+          setErrorList(validation("testInput").result.testInput);
         }}
       >
         <Input

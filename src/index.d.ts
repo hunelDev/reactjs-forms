@@ -7,22 +7,16 @@ import {
   TextareaProps,
   ValidationResult,
   CustomValidate,
+  ValidationResults,
 } from "./types";
 
 export declare const Form: FC<FormProps>;
 export declare const Input: FC<InputProps>;
 export declare const Select: FC<SelectProps>;
 export declare const Textarea: FC<TextareaProps>;
-export declare function useFormValidation<
-  T extends {
-    [id: string]: ValidationResult;
-  }
->(ids: string[]): () => T;
-export declare function useFormValidation<
-  T extends {
-    [id: string]: ValidationResult;
-  }
->(...ids: string[]): () => T;
+export function useFormValidation<T extends ValidationResults>(): (
+  ...ids: [string[]] | [...string[]]
+) => { result: T; isValid: boolean };
 export declare const getValidationResult: (
   value: string | readonly string[] | number,
   identity: string,

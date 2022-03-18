@@ -1,4 +1,4 @@
-import { PrimaryValidateValue } from "../types";
+import { PrimaryValidateValue, ValidationResults } from "../types";
 
 export const addPrimaryMsg = (validate: PrimaryValidateValue, msg: string) => {
   switch (typeof validate) {
@@ -30,4 +30,8 @@ export const resolveMsg = (
   const preResolve = msg.replace(/{{identity}}/, identity);
   if (!value) return preResolve;
   return preResolve.replace(/{{value}}/, value.toString());
+};
+
+export const checkResultIsValid = (result: ValidationResults) => {
+  return !Object.keys(result).some((v) => result[v].length > 0);
 };
