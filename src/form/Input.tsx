@@ -1,7 +1,7 @@
 import { FC, useContext, useEffect } from "react";
 import { getValidationResult } from "../core";
 import FormContext from "../core/formContext";
-import { InputProps, ValidationState } from "../types";
+import { InputProps, ValidaitonCombined } from "../types";
 
 const Input: FC<InputProps> = ({
   validation,
@@ -9,7 +9,7 @@ const Input: FC<InputProps> = ({
   identity,
   ...props
 }) => {
-  const context = useContext<ValidationState>(FormContext);
+  const context = useContext<ValidaitonCombined>(FormContext);
 
   useEffect(() => {
     if (validation || customValidation) {
@@ -21,7 +21,7 @@ const Input: FC<InputProps> = ({
           customValidation
         );
 
-        context!.setValidationResults((state) => {
+        context?.validationState?.setValidationResults((state) => {
           state[identity] = validationResult;
           return state;
         });

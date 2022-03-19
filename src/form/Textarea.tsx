@@ -1,7 +1,7 @@
 import { FC, useContext, useEffect } from "react";
 import { getValidationResult } from "../core";
 import FormContext from "../core/formContext";
-import { TextareaProps, ValidationState } from "../types";
+import { TextareaProps, ValidaitonCombined } from "../types";
 
 const Textarea: FC<TextareaProps> = ({
   validation,
@@ -9,7 +9,7 @@ const Textarea: FC<TextareaProps> = ({
   identity,
   ...props
 }) => {
-  const context = useContext<ValidationState>(FormContext);
+  const context = useContext<ValidaitonCombined>(FormContext);
 
   useEffect(() => {
     if (validation || customValidation) {
@@ -21,7 +21,7 @@ const Textarea: FC<TextareaProps> = ({
           customValidation
         );
 
-        context!.setValidationResults((state) => {
+        context?.validationState?.setValidationResults((state) => {
           state[identity] = validationResult;
           return state;
         });

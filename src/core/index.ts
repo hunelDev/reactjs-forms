@@ -5,6 +5,7 @@ import { checkForPrimaryValidation } from "./primary";
 import {
   CustomValidateObject,
   PrimaryValidateObject,
+  ValidaitonCombined,
   ValidationResult,
   ValidationResults,
 } from "../types";
@@ -13,9 +14,9 @@ import { checkResultIsValid } from "./helper";
 export function useFormValidation<T extends ValidationResults>(): (
   ...ids: [string[]] | [...string[]]
 ) => { result: ValidationResults; isValid: boolean } {
-  const context = useContext(FormContext);
+  const context = useContext<ValidaitonCombined>(FormContext);
   return function (...ids: [string[]] | [...string[]]) {
-    const result = { ...context!.validationResults };
+    const result = { ...context?.validationState?.validationResults };
     const keys = Object.keys(result);
     if (!ids.length) {
       return { result, isValid: checkResultIsValid(result) };

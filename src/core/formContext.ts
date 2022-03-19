@@ -1,6 +1,8 @@
 import { createContext } from "react";
-import { ValidationState } from "../types";
+import { ValidaitonCombined } from "../types";
 
-const FormContext = createContext<ValidationState>(null);
+const FormContext = createContext<ValidaitonCombined>({
+  validationState: null,
+});
 FormContext.displayName = "FormContext";
 export default FormContext;

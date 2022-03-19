@@ -3,15 +3,22 @@ import ValidatePipeLine from "./pipeline";
 import {
   PrimaryValidateObject,
   PrimaryValidateValue,
+  ValidaitonCombined,
   ValidateCase,
   ValidationResult,
 } from "../types";
+import { useContext } from "react";
+import FormContext from "./formContext";
 
 export const checkForPrimaryValidation = (
   validateObject: PrimaryValidateObject,
   value: string | readonly string[] | number,
   identity: string
 ) => {
+  const context = useContext<ValidaitonCombined>(FormContext);
+  const { config } = context!;
+  const customMessages = config?.customMessages;
+
   const validateKeys = Object.keys(validateObject);
 
   const trimedValue = Array.isArray(value)
@@ -21,14 +28,17 @@ export const checkForPrimaryValidation = (
   //required checking is seperated from other validation pipes becuase of required checking is a result breaker so is should be work first
   //todo breaker system in pipe
   if (validateKeys.find((key) => key === "required")) {
+    const req = validateObject["required"] as any;
+    const msg =
+      req.msg ??
+      customMessages?.required ??
+      `${identity} field value is required`;
+
     if (Array.isArray(trimedValue)) {
       if (trimedValue.length < 1 || !trimedValue.some((v) => !!v)) {
         return [
           {
-            msg: addPrimaryMsg(
-              validateObject["required"]!,
-              `${identity} field value is required`
-            ),
+            msg,
           },
         ];
       }
@@ -37,16 +47,24 @@ export const checkForPrimaryValidation = (
     if (trimedValue === "" || !trimedValue)
       return [
         {
-          msg: addPrimaryMsg(
-            validateObject["required"]!,
-            `${identity} field value is required`
-          ),
+          msg,
         },
       ];
   }
 
+  let refValidatePipeLine = ValidatePipeLine;
+  if (typeof customMessages !== "undefined") {
+    refValidatePipeLine = ValidatePipeLine.map((validatePipe) => {
+      if (typeof customMessages[validatePipe.case] !== "string")
+        return validatePipe;
+
+      validatePipe.defaultMsg = customMessages[validatePipe.case]!;
+      return validatePipe;
+    });
+  }
+
   return validateReducer(
-    ValidatePipeLine,
+    refValidatePipeLine,
     identity,
     trimedValue,
     validateObject
@@ -67,12 +85,13 @@ const validateReducer = (
       | ValidateCase
       | undefined;
 
-    if (validateCase)
+    if (validateCase) {
       return ResolveValidateCase(
         validationResult,
         validateCase,
         validate
       )(value, identity);
+    }
 
     return validationResult;
   }, []);

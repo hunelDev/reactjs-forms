@@ -1,13 +1,18 @@
 import { FC, useState } from "react";
 import FormContext from "./core/formContext";
-import { ValidationResults } from "./types";
+import { FormValidationProps, ValidationResults } from "./types";
 
-const FormValidation: FC = ({ children }) => {
+const FormValidation: FC<FormValidationProps> = ({ children, config }) => {
   const [validationResults, setValidationResults] = useState<ValidationResults>(
     {}
   );
   return (
-    <FormContext.Provider value={{ validationResults, setValidationResults }}>
+    <FormContext.Provider
+      value={{
+        config,
+        validationState: { validationResults, setValidationResults },
+      }}
+    >
       {children}
     </FormContext.Provider>
   );

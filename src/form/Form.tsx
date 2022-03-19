@@ -1,12 +1,16 @@
 import { FC, FormEventHandler, useContext } from "react";
 import FormContext from "../core/formContext";
-import { ExtendedHTMLFormElement, FormProps } from "../types";
+import {
+  ExtendedHTMLFormElement,
+  FormProps,
+  ValidaitonCombined,
+} from "../types";
 
 const Form: FC<FormProps> = ({ children, onSubmit, ...props }) => {
-  const context = useContext(FormContext);
+  const context = useContext<ValidaitonCombined>(FormContext);
 
   const submitHandler: FormEventHandler<ExtendedHTMLFormElement> = (e) => {
-    e.currentTarget.validation = context!.validationResults;
+    e.currentTarget.validation = context?.validationState?.validationResults!;
     if (onSubmit) onSubmit(e);
   };
 

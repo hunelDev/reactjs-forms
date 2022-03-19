@@ -4,7 +4,7 @@ import FormContext from "../core/formContext";
 import {
   ExtendedHTMLSelectElement,
   SelectProps,
-  ValidationState,
+  ValidaitonCombined,
 } from "../types";
 
 const Select: FC<SelectProps> = ({
@@ -14,7 +14,7 @@ const Select: FC<SelectProps> = ({
   children,
   ...props
 }) => {
-  const context = useContext<ValidationState>(FormContext);
+  const context = useContext<ValidaitonCombined>(FormContext);
 
   useEffect(() => {
     if (validation || customValidation) {
@@ -26,7 +26,7 @@ const Select: FC<SelectProps> = ({
           customValidation
         );
 
-        context!.setValidationResults((state) => {
+        context?.validationState?.setValidationResults((state) => {
           state[identity] = validationResult;
           return state;
         });

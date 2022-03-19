@@ -10,10 +10,27 @@ type ValidationState = {
   setValidationResults: Dispatch<SetStateAction<ValidationResults>>;
 } | null;
 
+type PrimaryCustomMessages = {
+  [P in PrimaryValidation]?: string;
+};
+
+type ValidationConfig = {
+  customMessages?: PrimaryCustomMessages;
+};
+
+type ValidaitonCombined = {
+  validationState: ValidationState;
+  config?: ValidationConfig;
+};
+
 interface ExtendedHTMLFormElement extends HTMLFormElement {
   onSubmit?: FormEventHandler<ExtendedHTMLFormElement>;
   validation: ValidationResults;
 }
+
+type FormValidationProps = {
+  config?: ValidationConfig;
+};
 
 interface FormProps
   extends React.DetailedHTMLProps<
