@@ -23,7 +23,8 @@ const Select: FC<SelectProps> = ({
           props.value! as any,
           identity,
           validation,
-          customValidation
+          customValidation,
+          context?.config?.customMessages
         );
 
         context?.validationState?.setValidationResults((state) => {

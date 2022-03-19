@@ -11,14 +11,14 @@ export const addPrimaryMsg = (validate: PrimaryValidateValue, msg: string) => {
   }
 };
 
-export const getValue = (validate: PrimaryValidateValue) => {
+export const getValue = (validate?: PrimaryValidateValue) => {
   switch (typeof validate) {
     case "string":
     case "boolean":
     case "number":
       return validate;
     default:
-      return validate.value ?? "";
+      return validate?.value ?? "";
   }
 };
 

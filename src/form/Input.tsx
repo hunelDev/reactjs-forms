@@ -18,7 +18,8 @@ const Input: FC<InputProps> = ({
           props.value.toString(),
           identity,
           validation,
-          customValidation
+          customValidation,
+          context?.config?.customMessages
         );
 
         context?.validationState?.setValidationResults((state) => {

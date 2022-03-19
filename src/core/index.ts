@@ -4,6 +4,7 @@ import FormContext from "./formContext";
 import { checkForPrimaryValidation } from "./primary";
 import {
   CustomValidateObject,
+  PrimaryCustomMessages,
   PrimaryValidateObject,
   ValidaitonCombined,
   ValidationResult,
@@ -42,7 +43,8 @@ export const getValidationResult = (
   value: string | readonly string[] | number,
   identity: string,
   validation?: PrimaryValidateObject,
-  customValidation?: CustomValidateObject
+  customValidation?: CustomValidateObject,
+  customMessages?: PrimaryCustomMessages
 ) => {
   let validationResult: ValidationResult = [];
 
@@ -50,7 +52,8 @@ export const getValidationResult = (
     const primaryValidationResult = checkForPrimaryValidation(
       validation,
       value,
-      identity
+      identity,
+      customMessages
     );
     validationResult = validationResult.concat(primaryValidationResult);
   }

@@ -18,7 +18,8 @@ const Textarea: FC<TextareaProps> = ({
           props.value!.toString(),
           identity,
           validation,
-          customValidation
+          customValidation,
+          context?.config?.customMessages
         );
 
         context?.validationState?.setValidationResults((state) => {

@@ -1,24 +1,18 @@
 import { addPrimaryMsg, getValue, resolveMsg } from "./helper";
 import ValidatePipeLine from "./pipeline";
 import {
+  PrimaryCustomMessages,
   PrimaryValidateObject,
   PrimaryValidateValue,
-  ValidaitonCombined,
   ValidateCase,
   ValidationResult,
 } from "../types";
-import { useContext } from "react";
-import FormContext from "./formContext";
-
 export const checkForPrimaryValidation = (
   validateObject: PrimaryValidateObject,
   value: string | readonly string[] | number,
-  identity: string
+  identity: string,
+  customMessages?: PrimaryCustomMessages
 ) => {
-  const context = useContext<ValidaitonCombined>(FormContext);
-  const { config } = context!;
-  const customMessages = config?.customMessages;
-
   const validateKeys = Object.keys(validateObject);
 
   const trimedValue = Array.isArray(value)
@@ -31,8 +25,13 @@ export const checkForPrimaryValidation = (
     const req = validateObject["required"] as any;
     const msg =
       req.msg ??
-      customMessages?.required ??
-      `${identity} field value is required`;
+      (customMessages?.required
+        ? resolveMsg(
+            customMessages?.required!,
+            identity,
+            getValue(validateObject["required"])
+          )
+        : `${identity} field value is required`);
 
     if (Array.isArray(trimedValue)) {
       if (trimedValue.length < 1 || !trimedValue.some((v) => !!v)) {
