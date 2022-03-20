@@ -1,6 +1,6 @@
 {
   "name": "reactjs-forms",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": false,
   "description": "Simplify your form validations in React projects with hook and extended html form elements.",
   "keywords": [

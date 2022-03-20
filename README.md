@@ -16,6 +16,8 @@
   - [Custom Validations](#custom-validations)
   - [Extended Form Element and Multiple Select Element](#extended-form-element-and-multiple-select-element)
   - [Examples](#examples)
+  - [Initialization With Custom Messages](#initialization-with-custom-messages)
+    - [Custom Message Priorities](#custom-message-priorities)
 
 ## Installation
 
@@ -94,7 +96,7 @@ function MyApp({ Component, pageProps }) {
 export default MyApp;
 ```
 
-###### Example - 1
+##### Example - 1
 
 _any component;_
 
@@ -220,7 +222,7 @@ const App = () => {
 export default App;
 ```
 
-###### Example - 2
+##### Example - 2
 
 In this example we will create a custom validator and also we will use a select form element with multiple selected attribute
 
@@ -332,7 +334,58 @@ const Other = () => {
 export default Other;
 ```
 
-For other examples ; [**Demo**](https://codesandbox.io/s/serene-paper-n3f013 "Demo")
+### Initialization With Custom Messages
+
+If you wish you can also send a config props to the FormValidation component while wrap your components with it.
+So we can change FormValidation component like this;
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import FormValidation from "reactjs-forms";
+
+const config = {
+  customMessages:{
+    max:"{{identity}} can be maximum {{value}}",
+    isEmai:"this email adress is invalid"
+    :
+  }
+}
+ReactDOM.render(
+  <FormValidation config={config}>
+    <App />
+  </FormValidation>,
+  document.getElementById("root")
+);
+```
+
+in this _"{{identity}} can be maximum {{value}}"_ string expression; {{identity}} is your identity prop of Input,Textarea or Select components.
+{{value}} is value that in validaiton prop of Input,Textarea or Select components.
+
+```jsx
+<Input
+  onChange={(e) => setCost(e.target.value)}
+  value={cost}
+  identity="cost"
+  validation={{
+    max: 1000, // in this example {{value}} represents number 1000
+  }}
+/>
+```
+
+So _"{{identity}} can be maximum {{value}}"_ will be _"cost can be maximum 1000"_
+
+#### Custom Message Priorities
+
+Ofcourse custom messages has a priority while processing.
+So custom message priority;
+
+1. Form Element Component's validaiton msg props that you are declarated in components,
+2. FormValidation Config's msg props,
+3. Default msg props
+
+For ts examples; [**Demo**](https://codesandbox.io/s/serene-paper-n3f013 "Demo")
 
 Finally,if you want to ask any question you can join our [Discord](https://discord.gg/BQffnte8 "Discord") channel.
 Also you can be contributor.
