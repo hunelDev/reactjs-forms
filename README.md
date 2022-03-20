@@ -385,6 +385,8 @@ So custom message priority;
 2. FormValidation Config's msg props,
 3. Default msg props
 
+in this list 1 has highest priority and 3 has lowest priority.
+
 For ts examples; [**Demo**](https://codesandbox.io/s/serene-paper-n3f013 "Demo")
 
 Finally,if you want to ask any question you can join our [Discord](https://discord.gg/BQffnte8 "Discord") channel.
