@@ -1,6 +1,7 @@
 import { FC } from "react";
 import {
   FormProps,
+  FormValidationProps,
   InputProps,
   SelectProps,
   TextareaProps,
@@ -14,5 +15,5 @@ export declare const Textarea: FC<TextareaProps>;
 export function useFormValidation<T extends ValidationResults>(): (
   ...ids: [string[]] | [...string[]]
 ) => { result: T; isValid: boolean };
-export declare const FormValidation: FC;
+export declare const FormValidation: FC<FormValidationProps>;
 export default FormValidation;
