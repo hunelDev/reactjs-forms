@@ -361,7 +361,7 @@ ReactDOM.render(
 ```
 
 in this _"{{identity}} can be maximum {{value}}"_ string expression; {{identity}} is your identity prop of Input,Textarea or Select components.
-{{value}} is value that in validaiton prop of Input,Textarea or Select components.
+{{value}} is value that in validation prop of Input,Textarea or Select components.
 
 ```jsx
 <Input
