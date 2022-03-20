@@ -57,8 +57,10 @@ export const checkForPrimaryValidation = (
       if (typeof customMessages[validatePipe.case] !== "string")
         return validatePipe;
 
-      validatePipe.defaultMsg = customMessages[validatePipe.case]!;
-      return validatePipe;
+      return {
+        ...validatePipe,
+        defaultMsg: customMessages[validatePipe.case]!,
+      };
     });
   }
 
