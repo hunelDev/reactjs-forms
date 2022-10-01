@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
-import { ChangeEventHandler, FormEventHandler } from "react";
+import { Dispatch, SetStateAction, ReactNode, ChangeEventHandler, FormEventHandler } from "react";
 
 type ValidationResults = {
   [p: string]: ValidationResult;
@@ -30,6 +29,7 @@ interface ExtendedHTMLFormElement extends HTMLFormElement {
 
 type FormValidationProps = {
   config?: ValidationConfig;
+  children?:ReactNode
 };
 
 interface FormProps
